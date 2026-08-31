@@ -11,7 +11,7 @@
     <style>
         :root {
             --bg-color: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-bg: rgba(30, 41, 59, 0.75);
             --accent-gold: #f59e0b;
             --accent-light: #fbbf24;
             --text-main: #f8fafc;
@@ -37,7 +37,6 @@
                 radial-gradient(circle at 20% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 40%),
                 radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 40%);
             padding: 20px;
-            overflow-x: hidden;
         }
 
         .container {
@@ -68,11 +67,8 @@
         h1 {
             font-size: 2.8rem;
             font-weight: 900;
-            letter-spacing: -0.5px;
             margin-bottom: 12px;
-            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #ffffff;
         }
 
         p.subtitle {
@@ -82,7 +78,6 @@
             margin-bottom: 36px;
         }
 
-        /* العداد التنازلي */
         .countdown {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -95,12 +90,6 @@
             border: 1px solid var(--border-color);
             padding: 16px 8px;
             border-radius: 16px;
-            transition: transform 0.2s ease;
-        }
-
-        .time-box:hover {
-            transform: translateY(-2px);
-            border-color: rgba(245, 158, 11, 0.4);
         }
 
         .number {
@@ -116,7 +105,6 @@
             margin-top: 4px;
         }
 
-        /* نموذج الاشتراك */
         .notify-form {
             display: flex;
             gap: 10px;
@@ -129,4 +117,93 @@
             padding: 14px 18px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            background: rgba(15, 23,
+            background: rgba(15, 23, 42, 0.8);
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .notify-form button {
+            padding: 14px 24px;
+            border-radius: 12px;
+            border: none;
+            background: var(--accent-gold);
+            color: #000;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 28px 16px; }
+            h1 { font-size: 2rem; }
+            .notify-form { flex-direction: column; }
+            .notify-form button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="badge">قريباً جداً</div>
+        <h1>Chief Naglaa</h1>
+        <p class="subtitle">نُعد لكم تجربة استثنائية في فنون الطهي. المتبقي على الانطلاق الكبير:</p>
+
+        <div class="countdown">
+            <div class="time-box">
+                <div class="number" id="days">05</div>
+                <div class="label">يوم</div>
+            </div>
+            <div class="time-box">
+                <div class="number" id="hours">00</div>
+                <div class="label">ساعة</div>
+            </div>
+            <div class="time-box">
+                <div class="number" id="minutes">00</div>
+                <div class="label">دقيقة</div>
+            </div>
+            <div class="time-box">
+                <div class="number" id="seconds">00</div>
+                <div class="label">ثانية</div>
+            </div>
+        </div>
+
+        <form class="notify-form" onsubmit="event.preventDefault(); alert('شكراً لاهتمامك!');">
+            <input type="email" placeholder="أدخل بريدك الإلكتروني..." required>
+            <button type="submit">أبلغني عند الإطلاق</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const targetDate = new Date().getTime() + (5 * 24 * 60 * 60 * 1000);
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const difference = targetDate - now;
+
+                if (difference > 0) {
+                    const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+                    const elDays = document.getElementById('days');
+                    const elHours = document.getElementById('hours');
+                    const elMinutes = document.getElementById('minutes');
+                    const elSeconds = document.getElementById('seconds');
+
+                    if (elDays) elDays.innerText = d < 10 ? '0' + d : d;
+                    if (elHours) elHours.innerText = h < 10 ? '0' + h : h;
+                    if (elMinutes) elMinutes.innerText = m < 10 ? '0' + m : m;
+                    if (elSeconds) elSeconds.innerText = s < 10 ? '0' + s : s;
+                }
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+    </script>
+</body>
+</html>
