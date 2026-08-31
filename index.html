@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chief Naglaa - جميع الوصفات والفيديوهات</title>
-    <!-- خط Cairo وأيقونات FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -13,7 +12,7 @@
     <style>
         :root {
             --bg-color: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-bg: rgba(30, 41, 59, 0.75);
             --accent-gold: #f59e0b;
             --accent-red: #ff0000;
             --text-main: #f8fafc;
@@ -40,7 +39,7 @@
 
         .header {
             max-width: 1000px;
-            margin: 20px auto 40px auto;
+            margin: 20px auto 30px auto;
             text-align: center;
         }
 
@@ -74,7 +73,7 @@
             justify-content: center;
             gap: 12px;
             flex-wrap: wrap;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .social-btn {
@@ -240,14 +239,6 @@
             gap: 6px;
         }
 
-        .loading-text {
-            text-align: center;
-            grid-column: 1 / -1;
-            padding: 40px;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
         @media (max-width: 600px) {
             h1 { font-size: 1.8rem; }
             .videos-grid { grid-template-columns: 1fr; }
@@ -259,7 +250,7 @@
     <header class="header">
         <img src="https://i.ytimg.com/vi/RYHwupXZfA4/hqdefault.jpg" alt="Chief Naglaa" class="profile-img">
         <h1>Chief Naglaa</h1>
-        <p class="bio">مرحباً بكم في الموقع الرسمي للشيف نجلاء. استمتعوا بشاهدة كافة وصفات الطهي والأكلات البحرية والمحاشي مباشرة.</p>
+        <p class="bio">مرحباً بكم في المكتبة الشاملة لشيف نجلاء. استمتعوا بجميع وصفات الطهي والأكلات البحرية والمحاشي مباشرة.</p>
 
         <div class="social-links">
             <a href="https://www.youtube.com/@Naglaaabousaad" target="_blank" class="social-btn btn-yt">
@@ -277,81 +268,48 @@
         <div class="section-title">جميع الفيديوهات والوصفات</div>
 
         <div class="videos-grid" id="videosGrid">
-            <div class="loading-text">جاري تحميل الفيديوهات من القناة...</div>
+            <!-- سيتم إنشاء واستدعاء كافة الفيديوهات تلقائياً عبر السكريبت -->
         </div>
     </main>
 
     <script>
-        // رابط خلاصة القناة الخاص بشيف نجلاء عبر خدمة تحويل RSS
-        const channelId = "UC4lBfWvI73C29W9S2aM9vOg"; 
-        const rssFeedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssFeedUrl)}`;
-
-        // فيديوهات احتياطية تظهر في حال تعذر الاتصال المباشر
-        const fallbackVideos = [
+        // قائمة بكل الفيديوهات الخاصة بالقناة
+        const allVideos = [
             {
-                title: "أجمد صينية محشي بحري كالماري وبصل وكرات بطعم خطير #وصفات #أكلات_بحرية",
-                link: "https://www.youtube.com/watch?v=RYHwupXZfA4",
-                thumbnail: "https://i.ytimg.com/vi/RYHwupXZfA4/hqdefault.jpg"
+                id: "RYHwupXZfA4",
+                title: "أجمد صينية محشي بحري كالماري وبصل وكرات بطعم خطير #وصفات سهلة ولذيذة #أكلات بحرية #محاشي"
             },
             {
-                title: "جزيرة المزرعة السعيدة #العاب #games",
-                link: "https://www.youtube.com/watch?v=t1mlJJnH6Qk",
-                thumbnail: "https://i.ytimg.com/vi/t1mlJJnH6Qk/hqdefault.jpg"
+                id: "t1mlJJnH6Qk",
+                title: "جزيرة المزرعة السعيدة #العاب #games"
             },
             {
-                title: "بث مباشر - حكايات نوجة في Ireland",
-                link: "https://www.youtube.com/watch?v=ms1XlGtUF_s",
-                thumbnail: "https://i.ytimg.com/vi/ms1XlGtUF_s/hqdefault.jpg"
+                id: "ms1XlGtUF_s",
+                title: "بث مباشر - حكايات نوجة في Ireland"
             }
         ];
 
-        async function loadVideos() {
-            const grid = document.getElementById('videosGrid');
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-
-                if (data.status === 'ok' && data.items.length > 0) {
-                    grid.innerHTML = '';
-                    data.items.forEach(item => {
-                        const videoId = item.link.split('v=')[1];
-                        const thumbnail = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-                        
-                        grid.appendChild(createVideoCard(item.title, item.link, thumbnail));
-                    });
-                } else {
-                    renderFallback();
-                }
-            } catch (error) {
-                renderFallback();
-            }
-        }
-
-        function renderFallback() {
+        function renderAllVideos() {
             const grid = document.getElementById('videosGrid');
             grid.innerHTML = '';
-            fallbackVideos.forEach(v => {
-                grid.appendChild(createVideoCard(v.title, v.link, v.thumbnail));
-            });
-        }
 
-        function createVideoCard(title, link, thumbnail) {
-            const card = document.createElement('a');
-            card.href = link;
-            card.target = "_blank";
-            card.className = "video-card";
-            card.innerHTML = `
-                <div class="thumbnail-wrapper">
-                    <img src="${thumbnail}" alt="${title}">
-                    <div class="play-icon"><i class="fas fa-play"></i></div>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">${title}</div>
-                    <div class="watch-btn"><i class="fas fa-external-link-alt"></i> مشاهدة على يوتيوب</div>
-                </div>
-            `;
-            return card;
+            allVideos.forEach(video => {
+                const card = document.createElement('a');
+                card.href = `https://www.youtube.com/watch?v=${video.id}`;
+                card.target = "_blank";
+                card.className = "video-card";
+                card.innerHTML = `
+                    <div class="thumbnail-wrapper">
+                        <img src="https://i.ytimg.com/vi/${video.id}/hqdefault.jpg" alt="${video.title}">
+                        <div class="play-icon"><i class="fas fa-play"></i></div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title">${video.title}</div>
+                        <div class="watch-btn"><i class="fas fa-external-link-alt"></i> مشاهدة على يوتيوب</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
         }
 
         function filterVideos() {
@@ -368,7 +326,7 @@
             });
         }
 
-        document.addEventListener("DOMContentLoaded", loadVideos);
+        document.addEventListener("DOMContentLoaded", renderAllVideos);
     </script>
 </body>
 </html>
