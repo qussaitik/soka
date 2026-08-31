@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chief Naglaa - قريباً</title>
+    <title>Chief Naglaa - الوصفات والفيديوهات</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
     <style>
         :root {
             --bg-color: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.75);
+            --card-bg: rgba(30, 41, 59, 0.7);
             --accent-gold: #f59e0b;
             --accent-red: #ff0000;
             --text-main: #f8fafc;
@@ -31,105 +31,109 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             background-image: 
-                radial-gradient(circle at 20% 20%, rgba(245, 158, 11, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.08) 0%, transparent 40%);
-            padding: 40px 20px;
+                radial-gradient(circle at 10% 10%, rgba(245, 158, 11, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(255, 0, 0, 0.05) 0%, transparent 40%);
+            padding: 20px 15px;
         }
 
-        .container {
-            max-width: 800px;
-            width: 100%;
+        .header {
+            max-width: 1000px;
+            margin: 20px auto 40px auto;
             text-align: center;
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 40px 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        .badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--accent-gold);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 20px;
+        .profile-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-gold);
+            margin-bottom: 15px;
+            object-fit: cover;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.2);
         }
 
         h1 {
-            font-size: 2.8rem;
+            font-size: 2.4rem;
             font-weight: 900;
             margin-bottom: 8px;
             color: #ffffff;
         }
 
-        p.subtitle {
+        p.bio {
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto 20px auto;
             line-height: 1.6;
-            margin-bottom: 28px;
         }
 
-        /* زر قناتها على يوتيوب */
-        .btn-youtube {
+        /* أزرار التواصل الاجتماعي */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: var(--accent-red);
-            color: #fff;
-            padding: 12px 28px;
+            gap: 8px;
+            padding: 10px 24px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
-            transition: transform 0.2s, background-color 0.2s;
-            margin-bottom: 36px;
+            font-size: 0.95rem;
+            transition: transform 0.2s, opacity 0.2s;
+            color: #fff;
         }
 
-        .btn-youtube:hover {
+        .social-btn:hover {
             transform: translateY(-2px);
-            background: #cc0000;
+            opacity: 0.9;
         }
 
-        /* العداد التنازلي */
-        .countdown {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 40px;
+        .btn-yt { background: var(--accent-red); }
+
+        /* شريط البحث */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto 35px auto;
+            position: relative;
         }
 
-        .time-box {
-            background: rgba(15, 23, 42, 0.6);
+        .search-container input {
+            width: 100%;
+            padding: 14px 45px 14px 20px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
-            padding: 16px 8px;
-            border-radius: 16px;
+            background: rgba(30, 41, 59, 0.8);
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
         }
 
-        .number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-            line-height: 1.2;
+        .search-container input:focus {
+            border-color: var(--accent-gold);
         }
 
-        .label {
-            font-size: 0.85rem;
+        .search-container i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
             color: var(--text-muted);
-            margin-top: 4px;
         }
 
-        /* قسم الفيديوهات والمصغرات */
+        /* شبكة الفيديوهات */
+        .videos-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
         .section-title {
             font-size: 1.3rem;
             font-weight: 700;
@@ -142,32 +146,35 @@
 
         .videos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
 
         .video-card {
-            background: rgba(15, 23, 42, 0.7);
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 18px;
             overflow: hidden;
             text-decoration: none;
             color: var(--text-main);
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
             display: flex;
             flex-direction: column;
+            backdrop-filter: blur(10px);
         }
 
         .video-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
             border-color: var(--accent-gold);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .thumbnail-wrapper {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* نسبة 16:9 */
+            padding-top: 56.25%;
             overflow: hidden;
+            background: #000;
         }
 
         .thumbnail-wrapper img {
@@ -177,6 +184,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .video-card:hover .thumbnail-wrapper img {
+            transform: scale(1.05);
         }
 
         .play-icon {
@@ -184,8 +196,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             background: rgba(0, 0, 0, 0.7);
             border-radius: 50%;
             display: flex;
@@ -200,65 +212,75 @@
             background: var(--accent-red);
         }
 
+        .video-info {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
         .video-title {
-            padding: 12px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.95rem;
+            font-weight: 700;
             text-align: right;
-            line-height: 1.4;
+            line-height: 1.5;
+            margin-bottom: 12px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        @media (max-width: 480px) {
-            .container { padding: 28px 16px; }
-            h1 { font-size: 2rem; }
-            .number { font-size: 1.5rem; }
+        .watch-btn {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
             .videos-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="badge">قريباً جداً</div>
+    <header class="header">
+        <img src="https://i.ytimg.com/vi/RYHwupXZfA4/hqdefault.jpg" alt="Chief Naglaa" class="profile-img">
         <h1>Chief Naglaa</h1>
-        <p class="subtitle">نُعد لكم تجربة استثنائية في فنون الطهي. المتبقي على الانطلاق الكبير:</p>
+        <p class="bio">مرحباً بكم في الموقع الرسمي للشيف نجلاء. أشهى وصفات الطهي والأكلات البحرية والمحاشي خطوة بخطوة.</p>
 
-        <div class="countdown">
-            <div class="time-box">
-                <div class="number" id="days">05</div>
-                <div class="label">يوم</div>
-            </div>
-            <div class="time-box">
-                <div class="number" id="hours">00</div>
-                <div class="label">ساعة</div>
-            </div>
-            <div class="time-box">
-                <div class="number" id="minutes">00</div>
-                <div class="label">دقيقة</div>
-            </div>
-            <div class="time-box">
-                <div class="number" id="seconds">00</div>
-                <div class="label">ثانية</div>
-            </div>
+        <div class="social-links">
+            <a href="https://www.youtube.com/@Naglaaabousaad" target="_blank" class="social-btn btn-yt">
+                <i class="fab fa-youtube"></i> زيارة القناة على يوتيوب
+            </a>
         </div>
 
-        <a href="https://www.youtube.com/@Naglaaabousaad" target="_blank" class="btn-youtube">
-            <i class="fab fa-youtube"></i> زيارة القناة على يوتيوب
-        </a>
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="ابحث عن وصفة أو فيديو..." onkeyup="filterVideos()">
+        </div>
+    </header>
 
-        <div class="section-title">أحدث الوصفات والفيديوهات</div>
-        
-        <div class="videos-grid">
+    <main class="videos-container">
+        <div class="section-title">جميع الوصفات والفيديوهات</div>
+
+        <div class="videos-grid" id="videosGrid">
+            
             <a href="https://www.youtube.com/watch?v=RYHwupXZfA4" target="_blank" class="video-card">
                 <div class="thumbnail-wrapper">
                     <img src="https://i.ytimg.com/vi/RYHwupXZfA4/hqdefault.jpg" alt="صينية محشي بحري">
                     <div class="play-icon"><i class="fas fa-play"></i></div>
                 </div>
-                <div class="video-title">أجمد صينية محشي بحري كالماري وبصل وكرات بطعم خطير</div>
+                <div class="video-info">
+                    <div class="video-title">أجمد صينية محشي بحري كالماري وبصل وكرات بطعم خطير #وصفات #أكلات_بحرية</div>
+                    <div class="watch-btn"><i class="fas fa-external-link-alt"></i> مشاهدة على يوتيوب</div>
+                </div>
             </a>
 
             <a href="https://www.youtube.com/watch?v=t1mlJJnH6Qk" target="_blank" class="video-card">
@@ -266,7 +288,10 @@
                     <img src="https://i.ytimg.com/vi/t1mlJJnH6Qk/hqdefault.jpg" alt="جزيرة المزرعة السعيدة">
                     <div class="play-icon"><i class="fas fa-play"></i></div>
                 </div>
-                <div class="video-title">جزيرة المزرعة السعيدة #العاب #games</div>
+                <div class="video-info">
+                    <div class="video-title">جزيرة المزرعة السعيدة #العاب #games</div>
+                    <div class="watch-btn"><i class="fas fa-external-link-alt"></i> مشاهدة على يوتيوب</div>
+                </div>
             </a>
 
             <a href="https://www.youtube.com/watch?v=ms1XlGtUF_s" target="_blank" class="video-card">
@@ -274,40 +299,29 @@
                     <img src="https://i.ytimg.com/vi/ms1XlGtUF_s/hqdefault.jpg" alt="حكايات نوجة">
                     <div class="play-icon"><i class="fas fa-play"></i></div>
                 </div>
-                <div class="video-title">بث مباشر - حكايات نوجة في Ireland</div>
+                <div class="video-info">
+                    <div class="video-title">بث مباشر - حكايات نوجة في Ireland</div>
+                    <div class="watch-btn"><i class="fas fa-external-link-alt"></i> مشاهدة على يوتيوب</div>
+                </div>
             </a>
+
         </div>
-    </div>
+    </main>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const targetDate = new Date().getTime() + (5 * 24 * 60 * 60 * 1000);
+        function filterVideos() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.video-card');
 
-            function updateCountdown() {
-                const now = new Date().getTime();
-                const difference = targetDate - now;
-
-                if (difference > 0) {
-                    const d = Math.floor(difference / (1000 * 60 * 60 * 24));
-                    const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                    const s = Math.floor((difference % (1000 * 60)) / 1000);
-
-                    const elDays = document.getElementById('days');
-                    const elHours = document.getElementById('hours');
-                    const elMinutes = document.getElementById('minutes');
-                    const elSeconds = document.getElementById('seconds');
-
-                    if (elDays) elDays.innerText = d < 10 ? '0' + d : d;
-                    if (elHours) elHours.innerText = h < 10 ? '0' + h : h;
-                    if (elMinutes) elMinutes.innerText = m < 10 ? '0' + m : m;
-                    if (elSeconds) elSeconds.innerText = s < 10 ? '0' + s : s;
+            cards.forEach(card => {
+                const title = card.querySelector('.video-title').innerText.toLowerCase();
+                if (title.includes(input)) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
                 }
-            }
-
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-        });
+            });
+        }
     </script>
 </body>
 </html>
