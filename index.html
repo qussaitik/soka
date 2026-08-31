@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chief Naglaa - الوصفات والفيديوهات</title>
+    <title>Chief Naglaa - جميع الوصفات والفيديوهات</title>
+    <!-- خط Cairo وأيقونات FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -68,7 +69,6 @@
             line-height: 1.6;
         }
 
-        /* أزرار التواصل الاجتماعي */
         .social-links {
             display: flex;
             justify-content: center;
@@ -97,7 +97,6 @@
 
         .btn-yt { background: var(--accent-red); }
 
-        /* شريط البحث */
         .search-container {
             max-width: 500px;
             margin: 0 auto 35px auto;
@@ -128,7 +127,6 @@
             color: var(--text-muted);
         }
 
-        /* شبكة الفيديوهات */
         .videos-container {
             max-width: 1100px;
             margin: 0 auto;
@@ -242,6 +240,14 @@
             gap: 6px;
         }
 
+        .loading-text {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
         @media (max-width: 600px) {
             h1 { font-size: 1.8rem; }
             .videos-grid { grid-template-columns: 1fr; }
@@ -253,7 +259,7 @@
     <header class="header">
         <img src="https://i.ytimg.com/vi/RYHwupXZfA4/hqdefault.jpg" alt="Chief Naglaa" class="profile-img">
         <h1>Chief Naglaa</h1>
-        <p class="bio">مرحباً بكم في الموقع الرسمي للشيف نجلاء. أشهى وصفات الطهي والأكلات البحرية والمحاشي خطوة بخطوة.</p>
+        <p class="bio">مرحباً بكم في الموقع الرسمي للشيف نجلاء. استمتعوا بشاهدة كافة وصفات الطهي والأكلات البحرية والمحاشي مباشرة.</p>
 
         <div class="social-links">
             <a href="https://www.youtube.com/@Naglaaabousaad" target="_blank" class="social-btn btn-yt">
@@ -268,47 +274,86 @@
     </header>
 
     <main class="videos-container">
-        <div class="section-title">جميع الوصفات والفيديوهات</div>
+        <div class="section-title">جميع الفيديوهات والوصفات</div>
 
         <div class="videos-grid" id="videosGrid">
-            
-            <a href="https://www.youtube.com/watch?v=RYHwupXZfA4" target="_blank" class="video-card">
-                <div class="thumbnail-wrapper">
-                    <img src="https://i.ytimg.com/vi/RYHwupXZfA4/hqdefault.jpg" alt="صينية محشي بحري">
-                    <div class="play-icon"><i class="fas fa-play"></i></div>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">أجمد صينية محشي بحري كالماري وبصل وكرات بطعم خطير #وصفات #أكلات_بحرية</div>
-                    <div class="watch-btn"><i class="fas fa-external-link-alt"></i> مشاهدة على يوتيوب</div>
-                </div>
-            </a>
-
-            <a href="https://www.youtube.com/watch?v=t1mlJJnH6Qk" target="_blank" class="video-card">
-                <div class="thumbnail-wrapper">
-                    <img src="https://i.ytimg.com/vi/t1mlJJnH6Qk/hqdefault.jpg" alt="جزيرة المزرعة السعيدة">
-                    <div class="play-icon"><i class="fas fa-play"></i></div>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">جزيرة المزرعة السعيدة #العاب #games</div>
-                    <div class="watch-btn"><i class="fas fa-external-link-alt"></i> مشاهدة على يوتيوب</div>
-                </div>
-            </a>
-
-            <a href="https://www.youtube.com/watch?v=ms1XlGtUF_s" target="_blank" class="video-card">
-                <div class="thumbnail-wrapper">
-                    <img src="https://i.ytimg.com/vi/ms1XlGtUF_s/hqdefault.jpg" alt="حكايات نوجة">
-                    <div class="play-icon"><i class="fas fa-play"></i></div>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">بث مباشر - حكايات نوجة في Ireland</div>
-                    <div class="watch-btn"><i class="fas fa-external-link-alt"></i> مشاهدة على يوتيوب</div>
-                </div>
-            </a>
-
+            <div class="loading-text">جاري تحميل الفيديوهات من القناة...</div>
         </div>
     </main>
 
     <script>
+        // رابط خلاصة القناة الخاص بشيف نجلاء عبر خدمة تحويل RSS
+        const channelId = "UC4lBfWvI73C29W9S2aM9vOg"; 
+        const rssFeedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssFeedUrl)}`;
+
+        // فيديوهات احتياطية تظهر في حال تعذر الاتصال المباشر
+        const fallbackVideos = [
+            {
+                title: "أجمد صينية محشي بحري كالماري وبصل وكرات بطعم خطير #وصفات #أكلات_بحرية",
+                link: "https://www.youtube.com/watch?v=RYHwupXZfA4",
+                thumbnail: "https://i.ytimg.com/vi/RYHwupXZfA4/hqdefault.jpg"
+            },
+            {
+                title: "جزيرة المزرعة السعيدة #العاب #games",
+                link: "https://www.youtube.com/watch?v=t1mlJJnH6Qk",
+                thumbnail: "https://i.ytimg.com/vi/t1mlJJnH6Qk/hqdefault.jpg"
+            },
+            {
+                title: "بث مباشر - حكايات نوجة في Ireland",
+                link: "https://www.youtube.com/watch?v=ms1XlGtUF_s",
+                thumbnail: "https://i.ytimg.com/vi/ms1XlGtUF_s/hqdefault.jpg"
+            }
+        ];
+
+        async function loadVideos() {
+            const grid = document.getElementById('videosGrid');
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.status === 'ok' && data.items.length > 0) {
+                    grid.innerHTML = '';
+                    data.items.forEach(item => {
+                        const videoId = item.link.split('v=')[1];
+                        const thumbnail = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+                        
+                        grid.appendChild(createVideoCard(item.title, item.link, thumbnail));
+                    });
+                } else {
+                    renderFallback();
+                }
+            } catch (error) {
+                renderFallback();
+            }
+        }
+
+        function renderFallback() {
+            const grid = document.getElementById('videosGrid');
+            grid.innerHTML = '';
+            fallbackVideos.forEach(v => {
+                grid.appendChild(createVideoCard(v.title, v.link, v.thumbnail));
+            });
+        }
+
+        function createVideoCard(title, link, thumbnail) {
+            const card = document.createElement('a');
+            card.href = link;
+            card.target = "_blank";
+            card.className = "video-card";
+            card.innerHTML = `
+                <div class="thumbnail-wrapper">
+                    <img src="${thumbnail}" alt="${title}">
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">${title}</div>
+                    <div class="watch-btn"><i class="fas fa-external-link-alt"></i> مشاهدة على يوتيوب</div>
+                </div>
+            `;
+            return card;
+        }
+
         function filterVideos() {
             const input = document.getElementById('searchInput').value.toLowerCase();
             const cards = document.querySelectorAll('.video-card');
@@ -322,6 +367,8 @@
                 }
             });
         }
+
+        document.addEventListener("DOMContentLoaded", loadVideos);
     </script>
 </body>
 </html>
