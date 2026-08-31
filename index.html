@@ -7,13 +7,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --bg-color: #0f172a;
             --card-bg: rgba(30, 41, 59, 0.75);
             --accent-gold: #f59e0b;
-            --accent-light: #fbbf24;
+            --accent-red: #ff0000;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: rgba(255, 255, 255, 0.1);
@@ -34,13 +35,13 @@
             align-items: center;
             justify-content: center;
             background-image: 
-                radial-gradient(circle at 20% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 40%);
-            padding: 20px;
+                radial-gradient(circle at 20% 20%, rgba(245, 158, 11, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.08) 0%, transparent 40%);
+            padding: 40px 20px;
         }
 
         .container {
-            max-width: 650px;
+            max-width: 800px;
             width: 100%;
             text-align: center;
             background: var(--card-bg);
@@ -61,28 +62,51 @@
             border-radius: 50px;
             font-size: 0.9rem;
             font-weight: 600;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         h1 {
             font-size: 2.8rem;
             font-weight: 900;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             color: #ffffff;
         }
 
         p.subtitle {
             color: var(--text-muted);
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        /* زر قناتها على يوتيوب */
+        .btn-youtube {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent-red);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
             margin-bottom: 36px;
         }
 
+        .btn-youtube:hover {
+            transform: translateY(-2px);
+            background: #cc0000;
+        }
+
+        /* العداد التنازلي */
         .countdown {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 12px;
-            margin-bottom: 36px;
+            margin-bottom: 40px;
         }
 
         .time-box {
@@ -95,7 +119,7 @@
         .number {
             font-size: 2rem;
             font-weight: 700;
-            color: var(--accent-light);
+            color: var(--accent-gold);
             line-height: 1.2;
         }
 
@@ -105,41 +129,94 @@
             margin-top: 4px;
         }
 
-        .notify-form {
-            display: flex;
-            gap: 10px;
-            max-width: 450px;
-            margin: 0 auto;
-        }
-
-        .notify-form input {
-            flex: 1;
-            padding: 14px 18px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            background: rgba(15, 23, 42, 0.8);
-            color: #fff;
-            font-size: 0.95rem;
-            outline: none;
-        }
-
-        .notify-form button {
-            padding: 14px 24px;
-            border-radius: 12px;
-            border: none;
-            background: var(--accent-gold);
-            color: #000;
+        /* قسم الفيديوهات والمصغرات */
+        .section-title {
+            font-size: 1.3rem;
             font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            white-space: nowrap;
+            margin-bottom: 20px;
+            text-align: right;
+            border-right: 4px solid var(--accent-gold);
+            padding-right: 12px;
+            color: #fff;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .video-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-gold);
+        }
+
+        .thumbnail-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* نسبة 16:9 */
+            overflow: hidden;
+        }
+
+        .thumbnail-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 44px;
+            height: 44px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: background 0.2s;
+        }
+
+        .video-card:hover .play-icon {
+            background: var(--accent-red);
+        }
+
+        .video-title {
+            padding: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: right;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         @media (max-width: 480px) {
             .container { padding: 28px 16px; }
             h1 { font-size: 2rem; }
-            .notify-form { flex-direction: column; }
-            .notify-form button { width: 100%; }
+            .number { font-size: 1.5rem; }
+            .videos-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -169,10 +246,37 @@
             </div>
         </div>
 
-        <form class="notify-form" onsubmit="event.preventDefault(); alert('شكراً لاهتمامك!');">
-            <input type="email" placeholder="أدخل بريدك الإلكتروني..." required>
-            <button type="submit">أبلغني عند الإطلاق</button>
-        </form>
+        <a href="https://www.youtube.com/@Naglaaabousaad" target="_blank" class="btn-youtube">
+            <i class="fab fa-youtube"></i> زيارة القناة على يوتيوب
+        </a>
+
+        <div class="section-title">أحدث الوصفات والفيديوهات</div>
+        
+        <div class="videos-grid">
+            <a href="https://www.youtube.com/watch?v=RYHwupXZfA4" target="_blank" class="video-card">
+                <div class="thumbnail-wrapper">
+                    <img src="https://i.ytimg.com/vi/RYHwupXZfA4/hqdefault.jpg" alt="صينية محشي بحري">
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="video-title">أجمد صينية محشي بحري كالماري وبصل وكرات بطعم خطير</div>
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=t1mlJJnH6Qk" target="_blank" class="video-card">
+                <div class="thumbnail-wrapper">
+                    <img src="https://i.ytimg.com/vi/t1mlJJnH6Qk/hqdefault.jpg" alt="جزيرة المزرعة السعيدة">
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="video-title">جزيرة المزرعة السعيدة #العاب #games</div>
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=ms1XlGtUF_s" target="_blank" class="video-card">
+                <div class="thumbnail-wrapper">
+                    <img src="https://i.ytimg.com/vi/ms1XlGtUF_s/hqdefault.jpg" alt="حكايات نوجة">
+                    <div class="play-icon"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="video-title">بث مباشر - حكايات نوجة في Ireland</div>
+            </a>
+        </div>
     </div>
 
     <script>
